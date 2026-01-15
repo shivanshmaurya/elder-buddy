@@ -1,5 +1,6 @@
-name: easy_call_seniors
-description: Easy calling app for elderly users
+name: elder_buddy
+description: "Elder Buddy - A Flutter app designed for elderly users with large contact tiles, high-contrast UI, and text-to-speech accessibility features."
+version: 1.0.0+1
 publish_to: 'none'
 
 environment:
@@ -15,6 +16,18 @@ dependencies:
   permission_handler: ^11.4.0
   shared_preferences: ^2.2.2
   path_provider: ^2.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
+  adaptive_icon_background: "#4CAF50"
+  adaptive_icon_foreground: "assets/icon/app_icon_foreground.png"
 
 flutter:
   uses-material-design: true

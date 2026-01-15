@@ -1,7 +1,7 @@
-# Easy Call - Elderly-Friendly Contacts App
+# Elder Buddy - Elderly-Friendly Contacts App
 
 ## Project Overview
-**Easy Call** is a Flutter mobile app designed for elderly users.  
+**Elder Buddy** is a Flutter mobile app designed for elderly users.  
 It displays contacts in **large, high-contrast tiles** with photos and nicknames, enabling **simple calling** and interaction.
 
 ---

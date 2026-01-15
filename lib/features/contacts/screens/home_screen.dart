@@ -225,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           const SizedBox(width: 12),
           const Text(
-            'Easy Call',
+            'Elder Buddy',
             style: TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.bold,

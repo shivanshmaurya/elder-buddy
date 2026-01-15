@@ -4,7 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class DirectCallService {
   static const MethodChannel _channel =
-      MethodChannel('com.easycall/direct_call');
+      MethodChannel('com.elderbuddy/direct_call');
 
   /// Make a direct phone call (requires CALL_PHONE permission)
   static Future<bool> makeCall(String phoneNumber) async {

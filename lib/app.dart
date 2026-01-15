@@ -9,7 +9,7 @@ class EasyCallApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Easy Call',
+      title: 'Elder Buddy',
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       home: const HomeScreen(),

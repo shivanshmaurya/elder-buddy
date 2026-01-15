@@ -318,7 +318,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Easy Call',
+                      'Elder Buddy',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,

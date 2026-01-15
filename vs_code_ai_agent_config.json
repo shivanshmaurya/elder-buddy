@@ -1,0 +1,51 @@
+{
+  "agent_name": "Flutter Elderly Contacts Assistant",
+  "project_type": "Flutter",
+  "language": ["Dart"],
+  "frameworks": ["Flutter", "Material"],
+  "dependencies": [
+    "flutter_contacts",
+    "url_launcher",
+    "flutter_tts",
+    "image_picker",
+    "shared_preferences"
+  ],
+  "features": [
+    "Elderly-friendly contact app",
+    "Large tile UI for contacts",
+    "Add / remove contacts",
+    "Phone number selection",
+    "Call confirmation screen",
+    "Text-to-Speech support",
+    "High contrast theme",
+    "Responsive GridView layout",
+    "System contact picker integration"
+  ],
+  "tasks": [
+    "Generate Flutter widgets",
+    "Write Dart classes and models",
+    "Integrate permissions and platform channels",
+    "Generate full screens (Home, Contact Picker, Call Confirmation)",
+    "Create reusable services (ContactPickerService, TTSService)",
+    "Write Flutter unit tests for widgets and services",
+    "Provide code suggestions for Flutter/Dart best practices",
+    "Generate pubspec.yaml dependencies",
+    "Debug Gradle & Android manifest issues"
+  ],
+  "preferences": {
+    "coding_style": "Clean, reusable, SOLID principles, stateless widgets where possible",
+    "ux_focus": "Elderly-friendly: large fonts, high contrast, simple interactions",
+    "error_handling": "Always handle nulls, empty lists, and denied permissions",
+    "file_structure": [
+      "lib/main.dart",
+      "lib/app.dart",
+      "lib/core/theme/app_theme.dart",
+      "lib/features/contacts/screens/home_screen.dart",
+      "lib/features/contacts/widgets/contact_tile.dart",
+      "lib/features/contacts/models/contact_tile_model.dart",
+      "lib/features/contacts/contact_picker_service.dart",
+      "lib/features/calls/call_confirmation_screen.dart",
+      "lib/features/tts/tts_service.dart"
+    ]
+  }
+}

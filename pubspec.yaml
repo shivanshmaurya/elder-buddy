@@ -15,3 +15,6 @@ dependencies:
   permission_handler: ^11.4.0
   shared_preferences: ^2.2.2
   path_provider: ^2.1.2
+
+flutter:
+  uses-material-design: true

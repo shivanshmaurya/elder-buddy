@@ -19,28 +19,9 @@ class AddContactDialog extends StatefulWidget {
 }
 
 class _AddContactDialogState extends State<AddContactDialog> {
-  late TextEditingController _nicknameController;
-  final _formKey = GlobalKey<FormState>();
   bool _isSaving = false;
 
-  @override
-  void initState() {
-    super.initState();
-    // Pre-fill with a suggested nickname
-    final name = widget.contact.displayName;
-    final suggestedNickname = name.split(' ').first;
-    _nicknameController = TextEditingController(text: suggestedNickname);
-  }
-
-  @override
-  void dispose() {
-    _nicknameController.dispose();
-    super.dispose();
-  }
-
   Future<void> _saveContact() async {
-    if (!(_formKey.currentState?.validate() ?? false)) return;
-
     setState(() => _isSaving = true);
 
     // Save photo if available
@@ -54,7 +35,7 @@ class _AddContactDialogState extends State<AddContactDialog> {
     }
 
     final contact = ContactTileModel(
-      nickname: _nicknameController.text.trim(),
+      nickname: widget.contact.displayName, // Use real name as nickname too
       realName: widget.contact.displayName,
       phoneNumber: widget.phoneNumber,
       photoPath: photoPath,
@@ -78,155 +59,121 @@ class _AddContactDialogState extends State<AddContactDialog> {
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Text(
-                  'Add Contact',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                'Add Contact',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(height: 24),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
 
-                // Contact photo preview
-                Center(
-                  child: _buildPhotoPreview(photoBytes, isDark),
-                ),
-                const SizedBox(height: 16),
+              // Contact photo preview
+              Center(
+                child: _buildPhotoPreview(photoBytes, isDark),
+              ),
+              const SizedBox(height: 16),
 
-                // Contact info display
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: isDark ? Colors.grey[900] : Colors.grey[100],
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        widget.contact.displayName,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        widget.phoneNumber,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: isDark ? Colors.grey[400] : Colors.grey[600],
-                        ),
-                      ),
-                    ],
-                  ),
+              // Contact info display
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: isDark ? Colors.grey[900] : Colors.grey[100],
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                const SizedBox(height: 24),
-
-                // Nickname input
-                const Text(
-                  'Enter a nickname:',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  '(e.g., Son, Daughter, Doctor)',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: isDark ? Colors.grey[400] : Colors.grey[600],
-                  ),
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _nicknameController,
-                  style: const TextStyle(fontSize: 22),
-                  textCapitalization: TextCapitalization.words,
-                  decoration: InputDecoration(
-                    hintText: 'Nickname',
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Please enter a nickname';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 32),
-
-                // Action buttons
-                Row(
+                child: Column(
                   children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: 56,
-                        child: OutlinedButton(
-                          onPressed:
-                              _isSaving ? null : () => Navigator.pop(context),
-                          style: OutlinedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          child: const Text(
-                            'Cancel',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
+                    Text(
+                      widget.contact.displayName,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
                       ),
+                      textAlign: TextAlign.center,
                     ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: SizedBox(
-                        height: 56,
-                        child: ElevatedButton(
-                          onPressed: _isSaving ? null : _saveContact,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                isDark ? Colors.white : Colors.black,
-                            foregroundColor:
-                                isDark ? Colors.black : Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          child: _isSaving
-                              ? const SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child:
-                                      CircularProgressIndicator(strokeWidth: 2),
-                                )
-                              : const Text(
-                                  'Save',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                        ),
+                    const SizedBox(height: 8),
+                    Text(
+                      widget.phoneNumber,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: isDark ? Colors.grey[400] : Colors.grey[600],
                       ),
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 24),
+
+              // Confirmation text
+              Text(
+                'Add this contact to your home screen?',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: isDark ? Colors.grey[400] : Colors.grey[600],
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+
+              // Action buttons
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 56,
+                      child: OutlinedButton(
+                        onPressed:
+                            _isSaving ? null : () => Navigator.pop(context),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text(
+                          'Cancel',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: SizedBox(
+                      height: 56,
+                      child: ElevatedButton(
+                        onPressed: _isSaving ? null : _saveContact,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: isDark ? Colors.white : Colors.black,
+                          foregroundColor: isDark ? Colors.black : Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: _isSaving
+                            ? const SizedBox(
+                                width: 24,
+                                height: 24,
+                                child:
+                                    CircularProgressIndicator(strokeWidth: 2),
+                              )
+                            : const Text(
+                                'Add',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
